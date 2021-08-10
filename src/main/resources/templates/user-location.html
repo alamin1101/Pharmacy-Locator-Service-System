@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Event Click LatLng</title>
+
+</head>
+<body>
+<H1>HDFJGHJGH</H1>
+<button onclick="getLocation()">Get Location</button>
+<div id="output"></div>
+<script src="https://code.jquery.com/jquery-2.2.4.js">
+</script>
+<script>
+    var x=document.getElementById('output');
+    function  getLocation()
+    {
+        if(navigator.geolocation)
+            navigator.geolocation.getCurrentPosition(showPosition);
+        else
+            x.innerHTML="Browser not Support";
+    }
+    function showPosition(position)
+    {
+        x.innerHTML="Latitude :"+position.coords.latitude;
+        x.innerHTML+="<br/>"
+        x.innerHTML+="Longtude :"+position.coords.longitude;
+    }
+</script>
+</body>
+</html>

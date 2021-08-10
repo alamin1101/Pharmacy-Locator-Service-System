@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Add New Pharmacy </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="login.css">
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <script src="./index.js"></script>
+
+</head>
+
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+
+        <div class="navbar-header">
+            <a style="color: azure;font-size: 30px" class="navbar-brand" href="/"><b><em>Medicine Shop </em></b>       </a>
+        </div>
+
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="/admin">Home</a></li>
+            <li ><a href="/add-new-medicine">Add New Medicine</a></li>
+
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Medicine Storage
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/medicine-category">Medicine Category</a></li>
+                    <li><a href="/medicine-storage">All Medicine</a></li>
+                </ul>
+            </li>
+            <li ><a href="/consumerslist">Consumers List</a></li>
+
+            <li><a href="/consumers-request">Consumers Request</a></li>
+            <li  class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Medicine Order
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li ><a href="/medicine-order-list">Ordered list </a></li>
+                    <li><a href="/medicine-order">New Order</a></li>
+                </ul>
+            </li>
+
+        </ul>
+
+        <ul sec:authorize="isAuthenticated()" class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <span class="glyphicon glyphicon-user"  sec:authentication="name"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="/profile">Profile</a></li>
+                    <li><a href="/profile/settings">Settings</a></li>
+                    <li><a href="/logout">Log Out</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div style="width: 100%; height: 200px">
+    <div id="map" ></div>
+
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgh0BMZzbPkiwq8r0REUiCs1fUHDv6k9E&callback=initMap&libraries=&v=weekly"
+            async
+    ></script>
+</div>
+
+<div class="container">
+    <h2 style="margin-top: 15px; text-align: center;color:blueviolet">Add New Medicine :</h2>
+
+
+    <form th:action="@{/add-new-pharmacy}" th:object="${medicine}" method="post" class="was-validated" style="color: blue">
+
+        <input type="hidden" name="medicineId" th:value="${medicine.medicineId}">
+
+        <div class="form-group">
+            <label for="title">Medicine Name</label>
+            <input id="title" type="text" class="form-control" placeholder="Medicine Name" name="medicineName" th:field="*{medicineName}"
+                   required>
+            <!--            <div class="invalid-feedback">Please fill out this field.</div>-->
+            <p class="error-message" th:if="${#fields.hasErrors('medicineName')}" th:errors="*{medicineName}"></p>
+        </div>
+
+        <div class="form-group">
+            <label for="category">Category</label>
+            <input type="text" class="form-control" id="category" placeholder=" Medicine Category" name="category"
+                   th:field="*{category}" required>
+            <!--            <div class="invalid-feedback">Please fill out this field.</div>-->
+            <p class="error-message" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></p>
+        </div>
+
+
+        <div class="form-group">
+            <label for="company"> Company Name</label>
+            <input type="text" class="form-control" id="company" placeholder="Company Name" name="company"
+                   th:field="*{company}" required>
+            <!--            <div class="invalid-feedback">Please fill out this field.</div>-->
+            <p class="error-message" th:if="${#fields.hasErrors('company')}" th:errors="*{company}"></p>
+        </div>
+
+
+        <div class="form-group">
+            <label for="price">Price Per Pill</label>
+            <input type="text" class="form-control" id="price" placeholder="Price" name="price"
+                   th:field="*{price}" required>
+            <!--            <div class="invalid-feedback">Please fill out this field.</div>-->
+            <p class="error-message" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></p>
+        </div>
+        <div class="form-group">
+            <label for="quantity">Quantity</label>
+            <input type="text" class="form-control" id="quantity" placeholder="Quantity" name="quantity"
+                   th:field="*{quantity}" required>
+            <!--            <div class="invalid-feedback">Please fill out this field.</div>-->
+            <p class="error-message" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></p>
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-success">Save</button>
+            <a href="add-new-medicine" class="btn btn-danger">Cancel</a>
+        </div>
+    </form>
+</div>
+
+
+</body>
+</html>

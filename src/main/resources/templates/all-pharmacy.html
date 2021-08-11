@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="p-list.css">
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+
+        <div class="navbar-header">
+            <a style="color: azure;font-size: 30px" class="navbar-brand" href="/"><b><em>Medicine Shop </em></b>       </a>
+        </div>
+
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="/admin">Home</a></li>
+            <li ><a href="/add-new-medicine">Add New Medicine</a></li>
+
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Medicine Storage
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/medicine-category">Medicine Category</a></li>
+                    <li><a href="/medicine-storage">All Medicine</a></li>
+                </ul>
+            </li>
+            <li ><a href="/consumerslist">Consumers List</a></li>
+
+            <li><a href="/consumers-request">Consumers Request</a></li>
+            <li  class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Medicine Order
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li ><a href="/medicine-order-list">Ordered list </a></li>
+                    <li><a href="/medicine-order">New Order</a></li>
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+
+    <tr th:each="element : ${list}">
+
+    <div class="col-xs-18 col-md-6">
+        <div class="prod-info-main prod-wrap clearfix">
+            <div class="row">
+                <div class="col-md-5 col-sm-12 col-xs-12">
+                    <div class="product-image">
+                        <img src="pharm01.jpg" class="img-responsive">
+                    </div>
+                </div>
+                <div class="col-md-7 col-sm-12 col-xs-12">
+                    <div class="product-deatil">
+                        <h5 class="name">
+                        [[${element.pName}]]/ [[${element.licenseNo}]]
+                        </h5>
+                        <p class="price-container">
+                            <span>[[${element.address}]]</span>
+                        </p>
+                        <p style="color: hotpink">
+                            [[${element.email}]]
+                        </p>
+                        <span class="tag1"></span>
+                    </div>
+                    <div class="description">
+                        <p><span style="color: darkorchid">Latitude[[${element.latitude}]]/ Longitude[[${element.longitude}]]</span></p>
+                    </div>
+                    <div class="product-info smart-form">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <a href="javascript:void(0);" class="btn btn-primary">Update</a>
+                                <a href="javascript:void(0);" class="btn btn-danger">Delete</a>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="rating">Rating:
+                                    <label for="stars-rating-5"><i class="fa fa-star text-danger"></i></label>
+                                    <label for="stars-rating-4"><i class="fa fa-star text-danger"></i></label>
+                                    <label for="stars-rating-3"><i class="fa fa-star text-danger"></i></label>
+                                    <label for="stars-rating-2"><i class="fa fa-star text-warning"></i></label>
+                                    <label for="stars-rating-1"><i class="fa fa-star text-warning"></i></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end product -->
+    </div>
+
+    </tr>
+</div>
+</body>
+</html>
+

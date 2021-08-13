@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script th:inline="javascript">
+
+    var array=[];
+    var list=/*[[${list}]]*/"f";
+    for(i=0;i<list.length;i++)
+    {
+        document.write(list[i].latitude+"al amin"+list[i].longitude+"///////")
+        var val=distance(24.00,88.00,list[i].latitude,list[i].longitude);
+        array.push(val);
+    }
+    array.sort();
+    for(i=0;i<array.length;i++)
+    {
+        document.write(array[i]+"   ");
+    }
+
+    function distance(lat1, lon1, lat2, lon2)
+    {
+        if ((lat1 == lat2) && (lon1 == lon2))
+        {
+            return 0;
+        }
+        else
+        {
+            var radlat1 = Math.PI * lat1 / 180;
+            var radlat2 = Math.PI * lat2 / 180;
+            var theta = lon1 - lon2;
+            var radtheta = Math.PI * theta / 180;
+            var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+            if (dist > 1)
+            {
+                dist = 1;
+            }
+            dist = Math.acos(dist);
+            dist = dist * 180 / Math.PI;
+            dist = dist * 60 * 1.1515;
+            dist = dist * 1.609344
+            return dist;
+        }
+    }
+
+</script>
+</body>
+</html>

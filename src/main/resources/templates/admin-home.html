@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Home </title>
+    <title>Admin Home</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -14,19 +14,37 @@
 
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
+
         <div class="navbar-header">
             <a style="color: azure;font-size: 30px" class="navbar-brand" href="/"><b><em>Medicine Shop </em></b>       </a>
         </div>
+
         <ul class="nav navbar-nav">
-            <li ><a href="/">Home</a></li>
-            <li><a href="/admin"><i class="fa fa-home"></i>Admin</a></li>
-            <li><a href="/consumer">Consumer</a></li>
-            <li><a href="/about">About</a></li>
+            <li class="active"><a href="/admin">Home</a></li>
+            <li ><a href="/add-new-medicine">Add New Medicine</a></li>
+
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Medicine Storage
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/medicine-category">Medicine Category</a></li>
+                    <li><a href="/medicine-storage">All Medicine</a></li>
+                </ul>
+            </li>
+            <li ><a href="/consumerslist">Consumers List</a></li>
+
+            <li><a href="/consumers-request">Consumers Request</a></li>
+            <li  class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Ordered Medicine
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li ><a href="/medicine-order-list">Ordered list </a></li>
+                    <li><a href="/medicine-order">New Order</a></li>
+                </ul>
+            </li>
+
         </ul>
-        <ul sec:authorize="!isAuthenticated()" class="nav navbar-nav navbar-right">
-            <li><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-            <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-        </ul>
+
         <ul sec:authorize="isAuthenticated()" class="nav navbar-nav navbar-right">
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -40,16 +58,18 @@
             </li>
         </ul>
 
+
     </div>
 </nav>
+<div class="content">
+    <center>
+        <h1 style="color: fuchsia"><b>Welcome to Online Medicine Shop</b></h1>
+
+    </center>
+</div>
 
 <div class="container">
-     <div class="content">
-        <center>
-            <h1 style="color: fuchsia"><b>Welcome to Online Medicine Shop</b></h1>
-
-        </center>
-    </div>
+    <img src="library.jpg" alt="Notebook" style="width: 100%;height: 90%">
     <div class="content">
         <center>
             <img src="123.jpg" alt="Italian Trulli">
@@ -64,7 +84,5 @@
         </center>
     </div>
 </div>
-
 </body>
 </html>
-

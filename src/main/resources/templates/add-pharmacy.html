@@ -115,6 +115,8 @@
             <label for="longitude">  </label>
             <input id="longitude" type="text" class="form-control" placeholder="Longitude" name="longitude" th:field="*{longitude}" required>
         </div>
+        <input type="hidden" name="distance" th:value="${pharmacy.distance}">
+
 
         <div>
             <button type="submit" class="btn btn-success">Save</button>

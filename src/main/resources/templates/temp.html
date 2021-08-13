@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="temp.css">
+
+</head>
+<body>
+<div class="container group">
+    <tr th:each="element : ${small}">
+    <div class="grid-1-5">
+        <p style="font-size: 30px;color: #a90329; font-family: Garamond">Nearest Pharmacy</p>
+        <h3 style="color: #f67d35;font-family: Garamond">[[${element.pName}]]</h3>
+        <ul>
+            <li>Address : [[${element.address}]]</li>
+            <li>   Email: [[${element.email}]]</li>
+
+        </ul>
+        <h2><b style="align-content: center; font-size: 25px"> Pharmacy Distance:</b></h2>
+        <h3><span style="color: darkorange">[[${element.distance}]] Km</span></h3>
+        <a href="#" class="button">Visit Now</a>
+    </div>
+    </tr>
+</div>
+
+<div class="container group">
+    <tr th:each="element : ${list}">
+    <div class="grid-1-5">
+        <h3 style="color: #f67d35;font-family: Garamond">[[${element.pName}]]</h3>
+        <ul>
+            <li>Address : [[${element.address}]]</li>
+            <li>   Email: [[${element.email}]]</li>
+
+        </ul>
+        <h2><b style="align-content: center; font-size: 30px"> Pharmacy Distance:</b></h2>
+        <h3><span style="color: darkorange">[[${element.distance}]] Km</span></h3>
+        <a href="#" class="button">Visit Now</a>
+    </div>
+    </tr>
+
+</div>
+
+</body>
+</html>

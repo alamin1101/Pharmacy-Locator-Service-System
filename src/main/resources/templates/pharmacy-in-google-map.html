@@ -17,22 +17,21 @@
 
 <script th:inline="javascript">
     /*<![CDATA[*/
+    var array=[];
     document.write(">");
-
     var list=/*[[${list}]]*/"f";
     /*]]>*/
-    document.write(list.lenght);
+    document.write(list.length);
     for(i=0;i<list.length;i++)
     {
-
-        addMarker({coords:{lat:list[i].latitude,lng:list[i].longitude},content:list[i].address});
-
-
-
+        const obj = {lat:list[i].latitude, lng:list[i].longitude, name:list[i].pName,address:list[i].address};
+        array.push(obj);
     }
 
 </script>
+
 <script>
+
 
     function initMap()
     {
@@ -41,7 +40,9 @@
             center:{lat:24.00,lng:90.000}
         }
         var map =new google.maps.Map(document.getElementById('map'),options);
-
+        for(i=0;i<array.length;i++) {
+            addMarker({coords: {lat: array[i].lat, lng:array[i].lng}, content:array[i].address});
+        }
 
         function addMarker(props) {
             var marker = new google.maps.Marker({
@@ -56,7 +57,8 @@
             marker.addListener('click', function () {
                 infoWindow.open(map, marker);
             });
-        }
+
+    }
 
     }
 </script>
@@ -66,5 +68,6 @@
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgh0BMZzbPkiwq8r0REUiCs1fUHDv6k9E&callback=initMap&libraries=&v=weekly"
         async
 ></script>
+
 </body>
 </html>

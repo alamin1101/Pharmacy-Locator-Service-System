@@ -56,7 +56,9 @@
     var list=/*[[${list}]]*/"f";
     /*]]>*/
     document.write(list.length);
-    for(i=0;i<list.length;i++)
+    for (const i in list) {
+
+    }
     {
         const obj = {lat:list[i].latitude, lng:list[i].longitude, name:list[i].pName,address:list[i].address};
         array.push(obj);
@@ -80,8 +82,8 @@
         // );
         //
         //
-        for(i=0;i<array.length;i++)
-        {
+        for (const i in array {
+
             addMarker({coords: {lat: array[i].lat, lng:array[i].lng}, content:array[i].address,
                 iconBase:
                     "http://maps.google.com/mapfiles/kml/paddle/P.png"}

@@ -51,10 +51,9 @@
 <script th:inline="javascript">
     /*<![CDATA[*/
     var array=[];
-    document.write(">");
-    var list=/*[[${list}]]*/"f";
+    var list=/*[[${list}]]*/"ffdg";
     /*]]>*/
-    document.write(list.length);
+    document.write(""+list.length);
     for(i=0;i<list.length;i++)
     {
         const obj = {lat:list[i].latitude, lng:list[i].longitude, name:list[i].pName,address:list[i].address};

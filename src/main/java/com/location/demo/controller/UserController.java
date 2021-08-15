@@ -1,6 +1,7 @@
 package com.location.demo.controller;
 
 
+import com.location.demo.entity.Pharmacy;
 import com.location.demo.entity.User;
 import com.location.demo.repository.PharmacyRepository;
 import com.location.demo.repository.UserRepository;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -32,7 +34,9 @@ public class UserController {
     @GetMapping("/pharmacy-map")
     public String seePharmacyGoogleMap(Model model){
 
-        model.addAttribute("list",pharmacyRepository.findAll());
+        List<Pharmacy> pharmacyList=pharmacyRepository.findAll();
+        System.out.println(""+pharmacyList.size());
+        model.addAttribute("list",pharmacyList);
         return "google-pharmacy-map";
     }
 

@@ -137,12 +137,9 @@ public class UserController {
     }
 
     @RequestMapping("/profile-update")
-    public String profileUpdate(@Valid User user, Principal principal, Model model)
+    public String profileUpdate(@Valid User user, Model model)
     {
-        if(userRepository.countUsersByUsername(user.getUsername())==1) {
-            model.addAttribute("message", "username already exist...");
-            return "profile_settings";
-        }
+
 
         if (!user.getPassword().equals(user.getConfirmPassword())) {
             model.addAttribute("message", "password not matched...");

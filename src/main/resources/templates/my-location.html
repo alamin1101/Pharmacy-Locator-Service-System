@@ -63,12 +63,7 @@
             center:{lat:24.00,lng:90.000}
         }
         var map =new google.maps.Map(document.getElementById('map'),options);
-        // addMarker({coords: {lat:24.90, lng:91.00}, content:'My Location',
-        //     iconBase:
-        //         "http://maps.google.com/mapfiles/kml/suffle/man.png"}
-        // );
-        //
-        //
+
 
         function getLocation() {
             if (navigator.geolocation)
@@ -83,7 +78,6 @@
             addMarker({coords: {lat:24.90, lng:91.00}, content:'<h3 style="font-family: Garamond;color:red">My Location:</h3>'+'<h4 style="color: deeppink;font-family: Garamond;font-size: 15px"><b>latitude</b></h4></br>'+latitude+'<h4 style="color: deeppink;font-family: Garamond;font-size: 15px"> <b>longitude</b></h4>'+longitude});
 
         }
-
 
 
         function addMarker(props) {

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Google Pharmacy Map</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="login.css">
+    <style>
+        #map{
+            height: 400px;
+            weight: 100%;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+    <div style="font-size: 14px;font-family: Garamond" class="container-fluid">
+        <div class="navbar-header">
+            <a style="color: azure;font-size: 30px" class="navbar-brand" href="/"><b><em>Pharmacy Locator System </em></b>       </a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li ><a href="/">Home</a></li>
+            <li ><a href="/pharmacy-map">Pharmacy Map</a></li>
+            <li ><a href="/my-location">My Location</a></li>
+            <li ><a href="/nearest-pharmacy">Nearest Pharmacy</a></li>
+			<li ><a href="/all-pharmacy-distance">All Pharmacy</a></li>
+			
+            <li><a href="/about">About</a></li>
+        </ul>
+        <ul sec:authorize="!isAuthenticated()" class="nav navbar-nav navbar-right">
+            <li><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+        <ul sec:authorize="isAuthenticated()" class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <span class="glyphicon glyphicon-user"  sec:authentication="name"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="/profile">Profile</a></li>
+                    <li><a href="/profile/settings">Settings</a></li>
+                    <li><a href="/logout">Log Out</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div id="map"></div>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var array=[];
+    var list=/*[[${list}]]*/"f";
+    /*]]>*/
+    document.write(list.length);
+    for(i=0;i<list.length;i++)
+    {
+        const obj = {lat:list[i].latitude, lng:list[i].longitude, name:list[i].pName,address:list[i].address};
+        array.push(obj);
+    }
+
+</script>
+
+<script>
+
+
+    function initMap()
+    {
+        var options={
+            zoom:7,
+            center:{lat:24.00,lng:90.000}
+        }
+        var map =new google.maps.Map(document.getElementById('map'),options);
+        // addMarker({coords: {lat:24.90, lng:91.00}, content:'My Location',
+        //     iconBase:
+        //         "http://maps.google.com/mapfiles/kml/suffle/man.png"}
+        // );
+        //
+        //
+        for(i=0;i<array.length;i++)
+        {
+            addMarker({coords: {lat: array[i].lat, lng:array[i].lng}, content:array[i].address,
+            iconBase:
+                "http://maps.google.com/mapfiles/kml/paddle/P.png"}
+                     );
+
+        }
+
+        function addMarker(props) {
+            var marker = new google.maps.Marker({
+                position: props.coords,
+                map: map,
+                icon:props.iconBase
+            });
+            if (props.content) {
+                var infoWindow = new google.maps.InfoWindow({
+                    content: props.content
+                });
+            }
+            marker.addListener('click', function () {
+                infoWindow.open(map, marker);
+            });
+
+    }
+
+    }
+</script>
+
+
+<script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgh0BMZzbPkiwq8r0REUiCs1fUHDv6k9E&callback=initMap&libraries=&v=weekly"
+        async
+></script>
+
+</body>
+</html>

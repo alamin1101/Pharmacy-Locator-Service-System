@@ -11,16 +11,18 @@
     <link rel="stylesheet" href="login.css">
 </head>
 <body>
-
 <nav class="navbar navbar-inverse">
-    <div class="container-fluid">
+    <div style="font-size: 14px;font-family: Garamond" class="container-fluid">
         <div class="navbar-header">
-            <a style="color: azure;font-size: 30px" class="navbar-brand" href="/"><b><em>Medicine Shop </em></b>       </a>
+            <a style="color: azure;font-size: 30px" class="navbar-brand" href="/"><b><em>Pharmacy Locator System </em></b>       </a>
         </div>
         <ul class="nav navbar-nav">
             <li ><a href="/">Home</a></li>
-            <li><a href="/admin"><i class="fa fa-home"></i>Admin</a></li>
-            <li><a href="/consumer">Consumer</a></li>
+            <li ><a href="/pharmacy-map">Pharmacy Map</a></li>
+            <li ><a href="/my-location">My Location</a></li>
+            <li ><a href="/nearest-pharmacy">Nearest Pharmacy</a></li>
+			<li ><a href="/all-pharmacy-distance">All Pharmacy</a></li>
+			
             <li><a href="/about">About</a></li>
         </ul>
         <ul sec:authorize="!isAuthenticated()" class="nav navbar-nav navbar-right">
@@ -39,31 +41,23 @@
                 </ul>
             </li>
         </ul>
-
     </div>
 </nav>
 
-<div class="container">
-     <div class="content">
-        <center>
-            <h1 style="color: fuchsia"><b>Welcome to Online Medicine Shop</b></h1>
 
-        </center>
-    </div>
-    <div class="content">
-        <center>
-            <img src="123.jpg" alt="Italian Trulli">
-            <img src="123.jpg" alt="Italian Trulli">
+<div id="googleMap" style="width:100%;height:400px;"></div>
 
-        </center>
-    </div>
-    <div class="content">
-        <center>
-            <img src="123.jpg" alt="Italian Trulli">
+<script>
+    function myMap() {
+        var mapProp= {
+            center:new google.maps.LatLng(24.00,90.00),
+            zoom:4,
+        };
+        var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+    }
+</script>
 
-        </center>
-    </div>
-</div>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgh0BMZzbPkiwq8r0REUiCs1fUHDv6k9E&callback=myMap"></script>
 
 </body>
 </html>

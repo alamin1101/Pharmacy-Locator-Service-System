@@ -17,7 +17,7 @@ public class Pharmacy implements Comparable<Pharmacy> {
 
     @Id
     private String licenseNo;
-    private String pName;
+    private String name;
     private String address;
     private String phone;
     private String email;

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Signup </title>
+    <title>Message </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="login.css">
 </head>
 <body>
-
 <nav class="navbar navbar-inverse">
     <div style="font-size: 14px;font-family: Garamond" class="container-fluid">
         <div class="navbar-header">
@@ -45,58 +44,12 @@
     </div>
 </nav>
 
-<div class="signup-form">
-    <form action="/signup-success" th:object="${user}" method="post" class="form-horizontal">
-       <div> <a th:if="${message} != null">
-            <script> window.alert('[[${message}]]')</script>
-        </a>
-       </div>
-        <div class="col-xs-8 col-xs-offset-4">
-            <h2 style="color: rebeccapurple">SignUp</h2>
 
-        </div>
+<script>
 
-        <div class="form-group">
-            <label class="control-label col-xs-4">UserName</label>
-            <div class="col-xs-8">
-                <input type="text" class="form-control" name="username" th:value="${user.username}" required="required" >
-            </div>
-        </div>
+    window.alert("[[${message}]]");
 
-        <div class="form-group">
-            <label class="control-label col-xs-4">Email Address</label>
-            <div class="col-xs-8">
-                <input type="email" class="form-control" name="email" th:value="${user.email}" required="required" >
-            </div>
-        </div>
+</script>
 
-        <div class="form-group">
-            <label class="control-label col-xs-4">Address</label>
-            <div class="col-xs-8">
-                <input type="text" class="form-control" name="address" th:value="${user.address}" required>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-xs-4">Password</label>
-            <div class="col-xs-8">
-                <input type="password" class="form-control" name="password" th:value="${user.password}" required>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-xs-4">Confirm Password</label>
-            <div class="col-xs-8">
-                <input type="Password" class="form-control" name="confirmPassword" th:value="${user.confirmPassword}" required >
-            </div>
-        </div>
-        <input type="hidden" name="role" th:value="${user.role}">
-        <div class="form-group">
-            <div class="col-xs-8 col-xs-offset-4">
-                <button type="submit" class="btn btn-primary btn-lg">Sign Up</button>
-            </div>
-        </div>
-    </form>
-    <div class="text-center"><b style="color: fuchsia">Already have an account?</b><a style="color: blue" href="/login">Login here</a></div>
-</div>
 </body>
 </html>

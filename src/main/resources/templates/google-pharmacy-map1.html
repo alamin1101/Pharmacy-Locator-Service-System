@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Pharmacy List </title>
+    <title>Google Pharmacy Map</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -9,6 +9,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="login.css">
+    <style>
+        #map{
+            height: 400px;
+            weight: 100%;
+        }
+    </style>
 </head>
 <body>
 <nav class="navbar navbar-inverse">
@@ -42,51 +48,72 @@
 </nav>
 
 
-<div class="container">
-    <h2 style="margin-top: 15px; text-align: center;color: blueviolet">Pharmacy List:</h2>
-    <div style="text-align: right;margin-top: 15px;width: available">
-        <form action="/pharmacy-list">
-            <input type="text" placeholder="search..." name="s">
-            <button type="submit" style="color: mediumvioletred;background-color: darkgray"><i class="fa fa-search"></i>Search</button>
-        </form>
-    </div>
+<div id="map"></div>
 
-    <table class="table table-bordered table-striped" style="margin-top:7px;color: black">
-        <thead>
-        <tr>
-            <th>License No</th>
-            <th>Pharmacy Name</th>
-            <th>Address</th>
-            <th>Email</th>
-            <th>Contact No</th>
-            <th style="color: #fa9442">Latitude</th>
-            <th style="color: blue">Longitude</th>
-            <th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="element : ${list}">
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var array=[];
+    var list=/*[[${list}]]*/"f";
+    /*]]>*/
+    document.write(list.length);
+    for(i=0;i<list.length;i++)
+    {
+        const obj = {lat:list[i].latitude, lng:list[i].longitude, name:list[i].pName,address:list[i].address};
+        array.push(obj);
+    }
 
-            <td> [[${element.licenseNo}]]</td>
-            <td> [[${element.name}]]</td>
-            <td> [[${element.address}]]</td>
-            <td> [[${element.email}]]</td>
-            <td> [[${element.phone}]]</td>
-            <td style="color: #fa9442"><b>[[${element.latitude}]]</b></td>
-            <td style="color: blue"><b>[[${element.longitude}]]</b></td>
-            <td >
-                <div >
-                    <a th:href="@{/update-pharmacy(licenseNo=${element.licenseNo})}" class="btn btn-primary">Update</a>
-                    <a th:href="@{/delete-pharmacy(licenseNo=${element.licenseNo})}" class="btn btn-danger">Delete</a>
-                </div>
-            </td>
+</script>
+
+<script>
 
 
-        </tr>
-        </tbody>
-    </table>
-</div>
+    function initMap()
+    {
+        var options={
+            zoom:7,
+            center:{lat:24.00,lng:90.000}
+        }
+        var map =new google.maps.Map(document.getElementById('map'),options);
+        // addMarker({coords: {lat:24.90, lng:91.00}, content:'My Location',
+        //     iconBase:
+        //         "http://maps.google.com/mapfiles/kml/suffle/man.png"}
+        // );
+        //
+        //
+        for(i=0;i<array.length;i++)
+        {
+            addMarker({coords: {lat: array[i].lat, lng:array[i].lng}, content:array[i].address,
+                iconBase:
+                    "http://maps.google.com/mapfiles/kml/paddle/P.png"}
+            );
 
+        }
+
+        function addMarker(props) {
+            var marker = new google.maps.Marker({
+                position: props.coords,
+                map: map,
+                icon:props.iconBase
+            });
+            if (props.content) {
+                var infoWindow = new google.maps.InfoWindow({
+                    content: props.content
+                });
+            }
+            marker.addListener('click', function () {
+                infoWindow.open(map, marker);
+            });
+
+        }
+
+    }
+</script>
+
+
+<script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgh0BMZzbPkiwq8r0REUiCs1fUHDv6k9E&callback=initMap&libraries=&v=weekly"
+        async
+></script>
 
 </body>
 </html>

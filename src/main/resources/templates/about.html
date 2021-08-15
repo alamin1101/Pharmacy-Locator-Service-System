@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <title>About </title>
+    <title>All Pharmacy </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -9,18 +9,21 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="temp.css">
 </head>
 <body>
-
 <nav class="navbar navbar-inverse">
-    <div class="container-fluid">
+    <div style="font-size: 18px;font-family: Garamond" class="container-fluid">
         <div class="navbar-header">
-            <a style="color: azure;font-size: 30px" class="navbar-brand" href="/"><b><em>Medicine Shop </em></b>       </a>
+            <a style="color: azure;font-size: 30px" class="navbar-brand" href="/"><b><em>Pharmacy Locator System </em></b>       </a>
         </div>
         <ul class="nav navbar-nav">
             <li ><a href="/">Home</a></li>
-            <li><a href="/admin"><i class="fa fa-home"></i>Admin</a></li>
-            <li><a href="/consumer">Consumer</a></li>
+            <li ><a href="/pharmacy-map">Pharmacy Map</a></li>
+            <li ><a href="/my-location">My Location</a></li>
+            <li ><a href="/nearest-pharmacy">Nearest Pharmacy</a></li>
+            <li ><a href="/all-pharmacy-distance">All Pharmacy</a></li>
+
             <li><a href="/about">About</a></li>
         </ul>
         <ul sec:authorize="!isAuthenticated()" class="nav navbar-nav navbar-right">
@@ -34,14 +37,14 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li><a href="/profile">Profile</a></li>
-                    <li><a href="/profile_settings">Settings</a></li>
+                    <li><a href="/profile/settings">Settings</a></li>
                     <li><a href="/logout">Log Out</a></li>
                 </ul>
             </li>
         </ul>
-
     </div>
 </nav>
+
 
 <div style="margin: 10px">
 

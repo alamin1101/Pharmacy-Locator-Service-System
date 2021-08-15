@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Nearest Pharmacy </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="temp.css">
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+    <div style="font-size: 18px;font-family: Garamond" class="container-fluid">
+        <div class="navbar-header">
+            <a style="color: azure;font-size: 30px" class="navbar-brand" href="/"><b><em>Pharmacy Locator System </em></b>       </a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li ><a href="/">Home</a></li>
+            <li ><a href="/pharmacy-map">Pharmacy Map</a></li>
+            <li ><a href="/my-location">My Location</a></li>
+            <li ><a href="/nearest-pharmacy">Nearest Pharmacy</a></li>
+            <li ><a href="/all-pharmacy-distance">All Pharmacy</a></li>
+
+            <li><a href="/about">About</a></li>
+        </ul>
+        <ul sec:authorize="!isAuthenticated()" class="nav navbar-nav navbar-right">
+            <li><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+        <ul sec:authorize="isAuthenticated()" class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <span class="glyphicon glyphicon-user"  sec:authentication="name"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="/profile">Profile</a></li>
+                    <li><a href="/profile/settings">Settings</a></li>
+                    <li><a href="/logout">Log Out</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+
+
+<div class="container group" id="information_holder">
+
+</div>
+
+
+
+<div id="map"></div>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    var list=/*[[${list}]]*/"f";
+    /*]]>*/
+
+
+    function distance(lat1, lon1, lat2, lon2)
+    {
+        if ((lat1 == lat2) && (lon1 == lon2))
+        {
+            let dist=0;
+            dist=dist.toFixed(4);
+            return dist;
+
+        }
+        else
+        {
+            var radlat1 = Math.PI * lat1 / 180;
+            var radlat2 = Math.PI * lat2 / 180;
+            var theta = lon1 - lon2;
+            var radtheta = Math.PI * theta / 180;
+            var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+            if (dist > 1)
+            {
+                dist = 1;
+            }
+            dist = Math.acos(dist);
+            dist = dist * 180 / Math.PI;
+            dist = dist * 60 * 1.1515;
+            dist = dist * 1.609344
+            dist=dist.toFixed(4);
+            return dist;
+        }
+    }
+
+
+
+    const x = document.getElementById("demo");
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+    }
+
+    function showPosition(position) {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+
+        var array=[];
+        for(i=0;i<list.length;i++)
+        {
+            var dist= distance(list[i].latitude,list[i].longitude,latitude,longitude);
+            const obj = {distance:dist,address:list[i].address,email:list[i].email,name:list[i].name};
+            array.push(obj);
+
+        }
+
+        array.sort(function(a, b) {
+            return a.distance - b.distance;
+        })
+
+        let information_div = '';
+        for(let i=0;i<Math.min(array.length,6);i++)
+        {
+            var x=document.getElementById('name');
+            
+            let info = array[i];
+            
+            information_div+='<div class="grid-1-5">';
+            information_div+='<p style="font-size: 30px;color: #a90329; font-family: Garamond">Nearest Pharmacy</p>';
+            information_div+='<h3 style="color: #f67d35;font-family: Garamond">' + info.name + '</h3>';
+            information_div+='<ul>';
+            information_div+='<li style="font-size: 13px;font-family: Garamond">Address : ' + info.address + '</li>';
+            information_div+='<li style="font-family: Garamond;font-size: 13px">Email: ' + info.email + '</li>';
+            information_div+='</ul>';
+            information_div+='<h2><b style="align-content: center; font-size: 25px"> Pharmacy Distance:</b></h2>';
+            information_div+='<h3><span style="color: darkorange">' + info.distance + ' Km</span></h3>';
+            information_div+='<a href="#" class="button">Visit Now</a>';
+            information_div+='</div>';
+        }
+        
+        $("#information_holder").append(information_div);
+    }
+    
+    getLocation();
+
+
+
+</script>
+</body>
+
+
+</html>

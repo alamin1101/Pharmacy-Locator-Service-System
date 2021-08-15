@@ -1,56 +1,36 @@
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Add New Pharmacy </title>
+    <title>Update Pharmacy </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="login.css">
-
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <link rel="stylesheet" type="text/css" href="./style.css" />
     <script src="./index.js"></script>
 
-</head>
+    <link rel="stylesheet" href="login.css">
 
+</head>
 <body>
 <nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-
+    <div style="font-size: 14px;font-family: Garamond" class="container-fluid">
         <div class="navbar-header">
-            <a style="color: azure;font-size: 30px" class="navbar-brand" href="/"><b><em>Pharmacy locator </em></b>       </a>
+            <a style="color: azure;font-size: 30px" class="navbar-brand" href="/"><b><em>Pharmacy Locator System </em></b>       </a>
         </div>
-
         <ul class="nav navbar-nav">
-            <li class="active"><a href="/admin">Home</a></li>
-            <li ><a href="/add-new-pharmacy">Add New pharmacy</a></li>
-
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">pharmacy Storage
-                    <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="/pharmacy-category">pharmacy Category</a></li>
-                    <li><a href="/pharmacy-storage">All pharmacy</a></li>
-                </ul>
-            </li>
-            <li ><a href="/consumerslist">Consumers List</a></li>
-
-            <li><a href="/consumers-request">Consumers Request</a></li>
-            <li  class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">pharmacy Order
-                    <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li ><a href="/pharmacy-order-list">Ordered list </a></li>
-                    <li><a href="/pharmacy-order">New Order</a></li>
-                </ul>
-            </li>
-
+            <li ><a href="#">Home</a></li>
+            <li ><a href="/google-pharmacy-map">Google Pharmacy Map</a></li>
+            <li ><a href="/add-pharmacy">Add New Pharmacy</a></li>
+           <li ><a href="/pharmacy-list">Pharmacy List</a></li>
         </ul>
-
+        <ul sec:authorize="!isAuthenticated()" class="nav navbar-nav navbar-right">
+            <li><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
         <ul sec:authorize="isAuthenticated()" class="nav navbar-nav navbar-right">
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -66,20 +46,15 @@
     </div>
 </nav>
 
-<div style=" width: 100%; height: 250px; align-content: center">
-    <div id="map" ></div>
 
-    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
-    <script
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgh0BMZzbPkiwq8r0REUiCs1fUHDv6k9E&callback=initMap&libraries=&v=weekly"
-            async
-    ></script>
-</div>
+
+
+
 
 <div class="container">
-    <h2 style="margin-top: 15px; text-align: center;color:blueviolet">New Pharmacy Information::</h2>
+    <h2 style="margin-top: 15px; text-align: center;color:blueviolet">Update Pharmacy Information::</h2>
 
-    <form th:action="@{/update-pharmacy}" th:object="${pharmacy}" method="post" class="was-validated" style="color: blue">
+    <form th:action="@{/add-pharmacy}" th:object="${pharmacy}" method="post" class="was-validated" style="color: blue">
 
 
         <div class="form-group">
@@ -89,7 +64,7 @@
 
         <div class="form-group">
             <label for="pharmacyName">  </label>
-            <input id="pharmacyName" type="text" class="form-control" placeholder="pharmacy Name" name="pName" th:field="*{pName}" required>
+            <input id="pharmacyName" type="text" class="form-control" placeholder="pharmacy Name" name="name" th:field="*{name}" required>
         </div>
 
         <div class="form-group">
@@ -106,6 +81,17 @@
             <input id="email" type="text" class="form-control" placeholder="Email address" name="email" th:field="*{email}" required>
         </div>
 
+<div>Click mouse pointer in google map, where you add this pharmacy:</div>
+<div style=" width: 100%; height: 350px; align-content: center">
+    <div id="map" ></div>
+
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgh0BMZzbPkiwq8r0REUiCs1fUHDv6k9E&callback=initMap&libraries=&v=weekly"
+            async
+    ></script>
+</div>
+
         <div class="form-group">
             <label for="latitude">  </label>
             <input id="latitude" type="text" class="form-control" placeholder=" Latitude" name="latitude" th:field="*{latitude}" required>
@@ -115,9 +101,11 @@
             <label for="longitude">  </label>
             <input id="longitude" type="text" class="form-control" placeholder="Longitude" name="longitude" th:field="*{longitude}" required>
         </div>
+        <input type="hidden" name="distance" th:value="${pharmacy.distance}">
+
 
         <div>
-            <button type="submit" class="btn btn-success">Save</button>
+            <button type="submit" class="btn btn-success">Update</button>
             <a href="add-new-pharmacy" class="btn btn-danger">Cancel</a>
         </div>
     </form>

@@ -20,12 +20,21 @@ public class AdminController {
     private PharmacyRepository pharmacyRepository;
 
 
-    @RequestMapping("/show-all-pharmacy")
-    public String showAllPharmacy(Model model)
+    @RequestMapping("/pharmacy-list")
+    public String showAllPharmacy(Model model,@RequestParam(required = false) String s)
     {
-        model.addAttribute("list",pharmacyRepository.findAll());
-        return "all-pharmacy";
+        model.addAttribute("list",pharmacyRepository.findAllPharmacy(s));
+        return "pharmacy-list";
     }
+
+
+    @GetMapping("/google-pharmacy-map")
+    public String seePharmacyGoogleMap(Model model){
+
+        model.addAttribute("list",pharmacyRepository.findAll());
+        return "google-pharmacy-map1";
+    }
+
 
     @GetMapping("/update-pharmacy")
     public String updatePharmacy(@RequestParam String licenseNo, Model model){
@@ -34,33 +43,18 @@ public class AdminController {
     }
 
 
-    @GetMapping("/see-pharmacy-google-map")
-    public String seePharmacyGoogleMap(Model model){
-
-        model.addAttribute("list",pharmacyRepository.findAll());
-        return "pharmacy-in-google-map";
-    }
-
-
     @PostMapping("/update-pharmacy")
     public String updatePharmacy(@Valid Pharmacy pharmacy)
     {
 
         pharmacyRepository.save(pharmacy);
-        return "redirect:/show-all-pharmacy";
+        return "redirect:/pharmacy-list";
     }
 
     @RequestMapping("/delete-pharmacy")
     public String deletePharmacy(@RequestParam String licenseNo){
         pharmacyRepository.deleteById(licenseNo);
-        return "redirect:/show-all-pharmacy";
-    }
-
-    @RequestMapping("/pharmacy-list")
-    public String pharmacyList(Model model)
-    {
-        model.addAttribute("list",pharmacyRepository.findAll());
-        return "pharmacy-list";
+        return "redirect:/pharmacy-list";
     }
 
 
@@ -76,7 +70,12 @@ public class AdminController {
     {
 
         pharmacyRepository.save(pharmacy);
-        return "add-pharmacy";
+        return "redirect:/pharmacy-list";
+    }
+    @RequestMapping("/admin01887149833")
+    public  String main()
+    {
+        return "admin-home";
     }
 
 

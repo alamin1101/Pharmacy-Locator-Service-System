@@ -1,20 +1,20 @@
 function initMap() {
-    const myLatlng = { lat: 24.000, lng: 90.044 };
+    const myLatlng = { lat: 24.0028956, lng: 90.0594985 };
     const map = new google.maps.Map(document.getElementById("map"), {
         zoom: 4,
         center: myLatlng,
     });
-    // Create the initial InfoWindow.
+
     let infoWindow = new google.maps.InfoWindow({
         content: "Click the map to get Lat/Lng!",
         position: myLatlng,
     });
     infoWindow.open(map);
-    // Configure the click listener.
+
     map.addListener("click", (mapsMouseEvent) => {
-        // Close the current InfoWindow.
+
+        setPositionToInputField(mapsMouseEvent.latLng);
         infoWindow.close();
-        // Create a new InfoWindow.
         infoWindow = new google.maps.InfoWindow({
             position: mapsMouseEvent.latLng,
         });
@@ -23,4 +23,13 @@ function initMap() {
         );
         infoWindow.open(map);
     });
+}
+
+
+function setPositionToInputField(position) {
+    const lat = position.lat();
+    const lng = position.lng();
+
+    $("#latitude").val(lat);
+    $("#longitude").val(lng);
 }

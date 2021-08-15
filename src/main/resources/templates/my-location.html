@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Login </title>
+    <title>My location</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -9,6 +9,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="login.css">
+    <style>
+        #map{
+            height: 400px;
+            weight: 100%;
+        }
+    </style>
 </head>
 <body>
 <nav class="navbar navbar-inverse">
@@ -21,8 +27,8 @@
             <li ><a href="/pharmacy-map">Pharmacy Map</a></li>
             <li ><a href="/my-location">My Location</a></li>
             <li ><a href="/nearest-pharmacy">Nearest Pharmacy</a></li>
-			<li ><a href="/all-pharmacy-distance">All Pharmacy</a></li>
-			
+            <li ><a href="/all-pharmacy-distance">All Pharmacy</a></li>
+
             <li><a href="/about">About</a></li>
         </ul>
         <ul sec:authorize="!isAuthenticated()" class="nav navbar-nav navbar-right">
@@ -44,31 +50,68 @@
     </div>
 </nav>
 
+<div id="map"></div>
 
-<div class="signup-form">
-    <form action="/login" method="post" class="form-horizontal">
-        <div class="col-xs-8 col-xs-offset-4">
-            <h2 style="color: rebeccapurple">Login</h2>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-xs-4">Username</label>
-            <div class="col-xs-8">
-                <input type="text" class="form-control" name="username" required>
-            </div>
-        </div>
+<script>
 
-        <div class="form-group">
-            <label class="control-label col-xs-4">Password</label>
-            <div class="col-xs-8">
-                <input type="password" class="form-control" name="password"  required>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-xs-8 col-xs-offset-4">
-                <button type="submit" class="btn btn-primary btn-lg">Login</button>
-            </div>
-        </div>
-    </form>
-</div>
+
+    function initMap()
+    {
+
+        var options={
+            zoom:7,
+            center:{lat:24.00,lng:90.000}
+        }
+        var map =new google.maps.Map(document.getElementById('map'),options);
+        // addMarker({coords: {lat:24.90, lng:91.00}, content:'My Location',
+        //     iconBase:
+        //         "http://maps.google.com/mapfiles/kml/suffle/man.png"}
+        // );
+        //
+        //
+
+        function getLocation() {
+            if (navigator.geolocation)
+                navigator.geolocation.getCurrentPosition(showPosition);
+            else
+                x.innerHTML = "Browser not Support";
+        }
+
+        function showPosition(position) {
+            var latitude = position.coords.latitude;
+            var longitude= position.coords.longitude;
+            addMarker({coords: {lat:24.90, lng:91.00}, content:'<h3 style="font-family: Garamond;color:red">My Location:</h3>'+'<h4 style="color: deeppink;font-family: Garamond;font-size: 15px"><b>latitude</b></h4></br>'+latitude+'<h4 style="color: deeppink;font-family: Garamond;font-size: 15px"> <b>longitude</b></h4>'+longitude});
+
+        }
+
+
+
+        function addMarker(props) {
+            var marker = new google.maps.Marker({
+                position: props.coords,
+                map: map,
+                icon:props.iconBase
+            });
+            if (props.content) {
+                var infoWindow = new google.maps.InfoWindow({
+                    content: props.content
+                });
+            }
+            marker.addListener('click', function () {
+                infoWindow.open(map, marker);
+            });
+
+        }
+        getLocation();
+
+    }
+</script>
+
+
+<script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgh0BMZzbPkiwq8r0REUiCs1fUHDv6k9E&callback=initMap&libraries=&v=weekly"
+        async
+></script>
+
 </body>
 </html>

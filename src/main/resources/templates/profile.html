@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Profile </title>
+    <title>My Profile </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -11,16 +11,18 @@
     <link rel="stylesheet" href="login.css">
 </head>
 <body>
-
 <nav class="navbar navbar-inverse">
-    <div class="container-fluid">
+    <div style="font-size: 14px;font-family: Garamond" class="container-fluid">
         <div class="navbar-header">
-            <a style="color: azure;font-size: 30px" class="navbar-brand" href="/"><b><em>Medicine Shop </em></b>       </a>
+            <a style="color: azure;font-size: 30px" class="navbar-brand" href="/"><b><em>Pharmacy Locator System </em></b>       </a>
         </div>
         <ul class="nav navbar-nav">
             <li ><a href="/">Home</a></li>
-            <li><a href="/admin"><i class="fa fa-home"></i>Admin</a></li>
-            <li><a href="/consumer">Consumer</a></li>
+            <li ><a href="/pharmacy-map">Pharmacy Map</a></li>
+            <li ><a href="/my-location">My Location</a></li>
+            <li ><a href="/nearest-pharmacy">Nearest Pharmacy</a></li>
+			<li ><a href="/all-pharmacy-distance">All Pharmacy</a></li>
+			
             <li><a href="/about">About</a></li>
         </ul>
         <ul sec:authorize="!isAuthenticated()" class="nav navbar-nav navbar-right">
@@ -39,20 +41,14 @@
                 </ul>
             </li>
         </ul>
-
     </div>
 </nav>
 
 <div class="signup-form" style="color: mediumvioletred; 'Audiowide', sans-serif;font-size: 30px">
     <div class="col-xs-8 col-xs-offset-4">
-        <h2>Profile Info:</h2>
+        <h2>Profile Information:</h2>
     </div>
-    <div class="form-group">
-        <label class="control-label col-xs-4">Name</label>
-        <div class="col-xs-8">
-            <h6>[[${user_info.firstname}]] [[${user_info.lastname}]]</h6>
-        </div>
-    </div>
+
     <div class="form-group">
         <label class="control-label col-xs-4">UserName</label>
         <div class="col-xs-8">
@@ -65,12 +61,7 @@
             <h6>[[${user_info.email}]]</h6>
         </div>
     </div>
-    <div class="form-group">
-        <label class="control-label col-xs-4">Phone Number</label>
-        <div class="col-xs-8">
-            <h6>[[${user_info.phone}]]</h6>
-        </div>
-    </div>
+
 
     <div class="form-group">
         <label class="control-label col-xs-4">Address</label>

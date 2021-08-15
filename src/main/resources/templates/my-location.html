@@ -52,6 +52,8 @@
 
 <div id="map"></div>
 
+
+
 <script>
 
 
@@ -64,18 +66,13 @@
         }
         var map =new google.maps.Map(document.getElementById('map'),options);
 
-
-        function getLocation() {
             if (navigator.geolocation)
                 navigator.geolocation.getCurrentPosition(showPosition);
-            else
-                x.innerHTML = "Browser not Support";
-        }
 
         function showPosition(position) {
             var latitude = position.coords.latitude;
             var longitude= position.coords.longitude;
-            addMarker({coords: {lat:24.90, lng:91.00}, content:'<h3 style="font-family: Garamond;color:red">My Location:</h3>'+'<h4 style="color: deeppink;font-family: Garamond;font-size: 15px"><b>latitude</b></h4></br>'+latitude+'<h4 style="color: deeppink;font-family: Garamond;font-size: 15px"> <b>longitude</b></h4>'+longitude});
+            addMarker({coords: {lat:latitude, lng:longitude}, content:'<h3 style="font-family: Garamond;color:red">My Location:</h3>'+'<h4 style="color: deeppink;font-family: Garamond;font-size: 15px"><b>latitude</b></h4></br>'+latitude+'<h4 style="color: deeppink;font-family: Garamond;font-size: 15px"> <b>longitude</b></h4>'+longitude});
 
         }
 
@@ -96,7 +93,7 @@
             });
 
         }
-        getLocation();
+
 
     }
 </script>

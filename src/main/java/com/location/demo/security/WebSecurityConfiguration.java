@@ -33,7 +33,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/", "/login","/home","/about","/signup","/pharmacy-map")
                 .permitAll()
-                .antMatchers("//admin01887149833","/pharmacy-list","/pharmacy-list", "/google-pharmacy-map","/update-pharmacy","/profile","/profile/settings","/update-profile","/delete-pharmacy","/add-pharmacy","/profile","/profile/settings","/profile-update")
+                .antMatchers("/admin01887149833","/pharmacy-list","/pharmacy-list", "/google-pharmacy-map","/update-pharmacy","/profile","/profile/settings","/update-profile","/delete-pharmacy","/add-pharmacy","/profile","/profile/settings","/profile-update")
                 .access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/all-pharmacy-distance","/my-location",  "/profile","/profile/settings","/update-profile","/nearest-pharmacy")
                 .access("hasRole('ROLE_USER')")

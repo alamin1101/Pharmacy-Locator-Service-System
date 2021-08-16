@@ -6,7 +6,7 @@ function initMap() {
     });
 
     let infoWindow = new google.maps.InfoWindow({
-        content: "Click the map to get Lat/Lng!",
+        content: "Click on the map where you placed pharmacy to get Latitude and Longitude!",
         position: myLatlng,
     });
     infoWindow.open(map);

@@ -51,6 +51,7 @@ public class UserController {
     @PostMapping("/login")
     public String login_success(Model model,Principal principal) {
         model.addAttribute("message", "login successfull.......");
+        System.out.println("pooo");
         User user =userRepository.findByUsername(principal.getName());
         if(user.getRole().equals("ROLE_ADMIN"))
             return  "admin-home";
@@ -140,23 +141,24 @@ public class UserController {
         return "profile_settings";
     }
 
-    @RequestMapping("/profile-update")
-    public String profileUpdate(@Valid User user, Model model)
+    @RequestMapping("/update-profile")
+
+    public String profileUpdate(@Valid User user,Principal principal,Model model)
     {
-
-
+        if(!principal.getName().equals(user.getUsername())) {
+             model.addAttribute("message", "username does not match");
+            return "profile_settings";
+        }
         if (!user.getPassword().equals(user.getConfirmPassword())) {
-            model.addAttribute("message", "password not matched...");
+            model.addAttribute("message", "password dose not match");
             return "profile_settings";
         }
         String pass = passwordEncoder.encode(user.getPassword());
         user.setPassword(pass);
         userRepository.save(user);
         if(user.getRole().equals("ROLE_ADMIN"))
-            return "admin-home";
+            return "redirect:/admin01887149833";
         else
-            return "home";
+            return "redirect:/home";
     }
-
-
 }

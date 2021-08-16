@@ -55,12 +55,8 @@
     var array=[];
     var list=/*[[${list}]]*/"f";
     /*]]>*/
-    document.write(list.length);
     for (const i in list) {
-
-    }
-    {
-        const obj = {lat:list[i].latitude, lng:list[i].longitude, name:list[i].pName,address:list[i].address};
+        const obj = {lat:list[i].latitude, lng:list[i].longitude, name:list[i].name,address:list[i].address};
         array.push(obj);
     }
 
@@ -76,15 +72,24 @@
             center:{lat:24.00,lng:90.000}
         }
         var map =new google.maps.Map(document.getElementById('map'),options);
-        // addMarker({coords: {lat:24.90, lng:91.00}, content:'My Location',
-        //     iconBase:
-        //         "http://maps.google.com/mapfiles/kml/suffle/man.png"}
-        // );
-        //
-        //
-        for (const i in array {
+        if (navigator.geolocation)
+            navigator.geolocation.getCurrentPosition(showPosition);
 
-            addMarker({coords: {lat: array[i].lat, lng:array[i].lng}, content:array[i].address,
+            function showPosition(position) {
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+                addMarker({
+                        coords: {lat: latitude, lng: longitude},
+                    content: '<h3 style="font-family: Garamond;color: blue">My Location</h3>',
+                        iconBase:
+                        "http://maps.google.com/mapfiles/kml/shapes/man.png"
+                    }
+                );
+            }
+        for (const i in array)
+        {
+
+            addMarker({coords: {lat: array[i].lat, lng:array[i].lng}, content:'<h4 style="font-family: Garamond;color: mediumvioletred">'+array[i].name+'</h4>',
                 iconBase:
                     "http://maps.google.com/mapfiles/kml/paddle/P.png"}
             );

@@ -76,21 +76,34 @@
             center:{lat:24.00,lng:90.000}
         }
         var map =new google.maps.Map(document.getElementById('map'),options);
-        // addMarker({coords: {lat:24.90, lng:91.00}, content:'My Location',
-        //     iconBase:
-        //         "http://maps.google.com/mapfiles/kml/suffle/man.png"}
-        // );
-        //
-        //
+
+
+
+
         for (const i in array) {
-            addMarker({coords: {lat: array[i].lat, lng:array[i].lng}, content:array[i].address,
+            addMarker({coords: {lat: array[i].lat, lng:array[i].lng}, content:'<h4 style="font-family: Garamond;color: mediumvioletred">'+array[i].name+'</h4>',
             iconBase:
                 "http://maps.google.com/mapfiles/kml/paddle/P.png"}
                      );
 
         }
+        if (navigator.geolocation)
+            navigator.geolocation.getCurrentPosition(showPosition);
 
-        function addMarker(props) {
+        function showPosition(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+            addMarker({
+                    coords: {lat: latitude, lng: longitude},
+                    content: '<h3 style="font-family: Garamond;color: blue">My Location</h3>',
+                    iconBase:
+                        "http://maps.google.com/mapfiles/kml/shapes/man.png"
+                }
+            );
+        }
+
+
+            function addMarker(props) {
             var marker = new google.maps.Marker({
                 position: props.coords,
                 map: map,

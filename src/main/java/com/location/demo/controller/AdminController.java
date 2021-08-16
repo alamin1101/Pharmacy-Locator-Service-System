@@ -36,7 +36,6 @@ public class AdminController {
     }
 
 
-
     @GetMapping("/update-pharmacy")
     public String updatePharmacy(@RequestParam String licenseNo, Model model){
         model.addAttribute("pharmacy", pharmacyRepository.findById(licenseNo).get());

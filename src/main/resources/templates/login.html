@@ -47,6 +47,9 @@
 
 <div class="signup-form">
     <form action="/login" method="post" class="form-horizontal">
+        <div> <a th:if="${message} != null">
+            <script> window.alert('[[${message}]]')</script>
+        </a>
         <div class="col-xs-8 col-xs-offset-4">
             <h2 style="color: rebeccapurple">Login</h2>
         </div>
